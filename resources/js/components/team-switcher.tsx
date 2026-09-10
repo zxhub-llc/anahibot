@@ -23,6 +23,7 @@ export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
     const isMobile = useIsMobile();
     const currentTeam = page.props.currentTeam;
     const teams = page.props.teams ?? [];
+    const canCreateTeam = page.props.canCreateTeam ?? false;
 
     const switchTeam = (team: Team) => {
         const previousTeamSlug = currentTeam?.slug;
@@ -50,6 +51,22 @@ export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
             },
         });
     };
+
+    // Cuentas empresa: un solo team fijo, sin necesidad de switcher interactivo.
+    if (!canCreateTeam && teams.length <= 1) {
+        return (
+            <div
+                className={
+                    inHeader
+                        ? 'flex h-8 items-center gap-2 px-2 text-sm font-medium'
+                        : 'flex w-full items-center gap-2 px-2 text-sm font-semibold'
+                }
+            >
+                <Users className="hidden size-4 shrink-0 group-data-[collapsible=icon]:block" />
+                <span className="truncate">{currentTeam?.name ?? ''}</span>
+            </div>
+        );
+    }
 
     return (
         <DropdownMenu>
@@ -132,21 +149,26 @@ export function TeamSwitcher({ inHeader = false }: TeamSwitcherProps) {
                         )}
                     </DropdownMenuItem>
                 ))}
-                <DropdownMenuSeparator />
-                <CreateTeamModal>
-                    <DropdownMenuItem
-                        data-test="team-switcher-new-team"
-                        className={
-                            inHeader
-                                ? 'cursor-pointer gap-2'
-                                : 'cursor-pointer gap-2 p-2'
-                        }
-                        onSelect={(event) => event.preventDefault()}
-                    >
-                        <Plus className={inHeader ? 'size-4' : 'h-4 w-4'} />
-                        <span className="text-muted-foreground">New team</span>
-                    </DropdownMenuItem>
-                </CreateTeamModal>
+
+                {canCreateTeam && (
+                    <>
+                        <DropdownMenuSeparator />
+                        <CreateTeamModal>
+                            <DropdownMenuItem
+                                data-test="team-switcher-new-team"
+                                className={
+                                    inHeader
+                                        ? 'cursor-pointer gap-2'
+                                        : 'cursor-pointer gap-2 p-2'
+                                }
+                                onSelect={(event) => event.preventDefault()}
+                            >
+                                <Plus className={inHeader ? 'size-4' : 'h-4 w-4'} />
+                                <span className="text-muted-foreground">New team</span>
+                            </DropdownMenuItem>
+                        </CreateTeamModal>
+                    </>
+                )}
             </DropdownMenuContent>
         </DropdownMenu>
     );

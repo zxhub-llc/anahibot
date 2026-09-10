@@ -1,0 +1,131 @@
+  <warning> DEPRECATED </warning> Method ReflectionMethod::setAccessible() is deprecated since 8.5, as it has no effect in tmp/sri_debug.php on line 11.
+Cookies ENVIADAS en hop 1:
+--- HOP 1 ---
+URL: https://srienlinea.sri.gob.ec/comprobantes-electronicos-internet/pages/consultas/recibidos/comprobantesRecibidos.jsf?contextoMPT=https%3A%2F%2Fsrienlinea.sri.gob.ec%2Ftuportal-internet&pathMPT=Facturaci%C3%B3n+Electr%C3%B3nica&esFavorito=S
+Status: 302
+Location: https://srienlinea.sri.gob.ec/tuportal-internet/GeneraToken.jsp?urlAplicacion=https://srienlinea.sri.gob.ec/comprobantes-electronicos-internet/pages/consultas/recibidos/comprobantesRecibidos.jsf
+Set-Cookie:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09; Path=/comprobantes-electronicos-internet; Secure;SameSite=lax
+  BIGipServerCEL-internet=555614474.47873.0000; path=/; Httponly; Secure
+  TS01ed1cee=0115ac86d29acbcb568c1e860e143b6faac0874329b9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc7a8808000d4122f161a6988b1fd44c49; Path=/; Domain=.srienlinea.sri.gob.ec
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09; path=/comprobantes-electronicos-internet
+
+Cookies ENVIADAS en hop 2:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+--- HOP 2 ---
+URL: https://srienlinea.sri.gob.ec/tuportal-internet/GeneraToken.jsp?urlAplicacion=https://srienlinea.sri.gob.ec/comprobantes-electronicos-internet/pages/consultas/recibidos/comprobantesRecibidos.jsf
+Status: 302
+Location: https://srienlinea.sri.gob.ec/auth/realms/Internet/protocol/openid-connect/auth?response_type=code&client_id=app-tuportal-internet&redirect_uri=https%3A%2F%2Fsrienlinea.sri.gob.ec%2Ftuportal-internet%2FGeneraToken.jsp?urlAplicacion%3Dhttps%3A%2F%2Fsrienlinea.sri.gob.ec%2Fcomprobantes-electronicos-internet%2Fpages%2Fconsultas%2Frecibidos%2FcomprobantesRecibidos.jsf&state=1541ac5a-4217-40b2-ae63-1017faa6a52c&login=true&scope=openid
+Set-Cookie:
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01; Path=/tuportal-internet; Secure; HttpOnly;SameSite=lax
+  OAuth_Token_Request_State=1541ac5a-4217-40b2-ae63-1017faa6a52c; Version=1; Secure; HttpOnly;SameSite=lax
+  TS01ed1cee=0115ac86d253c0fa1ddaa291e3fc1a1028b8ff21f7b9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc2b6abbdbfc31d719c730f06c3ffb30cedbe03c78825a232994871957f4ce1538; Path=/; Domain=.srienlinea.sri.gob.ec
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb; path=/tuportal-internet
+
+Cookies ENVIADAS en hop 3:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 3 ---
+URL: https://srienlinea.sri.gob.ec/auth/realms/Internet/protocol/openid-connect/auth?response_type=code&client_id=app-tuportal-internet&redirect_uri=https%3A%2F%2Fsrienlinea.sri.gob.ec%2Ftuportal-internet%2FGeneraToken.jsp?urlAplicacion%3Dhttps%3A%2F%2Fsrienlinea.sri.gob.ec%2Fcomprobantes-electronicos-internet%2Fpages%2Fconsultas%2Frecibidos%2FcomprobantesRecibidos.jsf&state=1541ac5a-4217-40b2-ae63-1017faa6a52c&login=true&scope=openid
+Status: 200
+Location: (none)
+Set-Cookie:
+  AUTH_SESSION_ID=fa67aa06-6844-4488-93b9-787f46299476.sso04; Version=1; Path=/auth/realms/Internet/; Secure; HttpOnly;SameSite=lax
+  KC_RESTART=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmZTYxYmIyZS1lNjc0LTQ0NWQtOTU1Ni04Nzg0MTE1Mjc1ZmUifQ.eyJjaWQiOiJhcHAtdHVwb3J0YWwtaW50ZXJuZXQiLCJwdHkiOiJvcGVuaWQtY29ubmVjdCIsInJ1cmkiOiJodHRwczovL3NyaWVubGluZWEuc3JpLmdvYi5lYy90dXBvcnRhbC1pbnRlcm5ldC9HZW5lcmFUb2tlbi5qc3A_dXJsQXBsaWNhY2lvbj1odHRwczovL3NyaWVubGluZWEuc3JpLmdvYi5lYy9jb21wcm9iYW50ZXMtZWxlY3Ryb25pY29zLWludGVybmV0L3BhZ2VzL2NvbnN1bHRhcy9yZWNpYmlkb3MvY29tcHJvYmFudGVzUmVjaWJpZG9zLmpzZiIsImFjdCI6IkFVVEhFTlRJQ0FURSIsIm5vdGVzIjp7InNjb3BlIjoib3BlbmlkIiwiaXNzIjoiaHR0cHM6Ly9zcmllbmxpbmVhLnNyaS5nb2IuZWMvYXV0aC9yZWFsbXMvSW50ZXJuZXQiLCJyZXNwb25zZV90eXBlIjoiY29kZSIsImNvZGVfY2hhbGxlbmdlX21ldGhvZCI6InBsYWluIiwicmVkaXJlY3RfdXJpIjoiaHR0cHM6Ly9zcmllbmxpbmVhLnNyaS5nb2IuZWMvdHVwb3J0YWwtaW50ZXJuZXQvR2VuZXJhVG9rZW4uanNwP3VybEFwbGljYWNpb249aHR0cHM6Ly9zcmllbmxpbmVhLnNyaS5nb2IuZWMvY29tcHJvYmFudGVzLWVsZWN0cm9uaWNvcy1pbnRlcm5ldC9wYWdlcy9jb25zdWx0YXMvcmVjaWJpZG9zL2NvbXByb2JhbnRlc1JlY2liaWRvcy5qc2YiLCJzdGF0ZSI6IjE1NDFhYzVhLTQyMTctNDBiMi1hZTYzLTEwMTdmYWE2YTUyYyIsImNsaWVudF9yZXF1ZXN0X3BhcmFtX2xvZ2luIjoidHJ1ZSJ9fQ.lHsfEHOHQY3wXugAsmKNNv9-ktZYXMef2yhK1bUuv-g; Version=1; Path=/auth/realms/Internet/; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_IDENTITY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet/; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_IDENTITY_LEGACY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet/; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_SESSION=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet/; Secure;SameSite=lax
+  KEYCLOAK_SESSION_LEGACY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet/; Secure;SameSite=lax
+  KEYCLOAK_IDENTITY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_IDENTITY_LEGACY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_SESSION=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure;SameSite=lax
+  KEYCLOAK_SESSION_LEGACY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure;SameSite=lax
+  KEYCLOAK_IDENTITY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_IDENTITY_LEGACY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure; HttpOnly;SameSite=lax
+  KEYCLOAK_SESSION=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure;SameSite=lax
+  KEYCLOAK_SESSION_LEGACY=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/Internet; Secure;SameSite=lax
+  TS01ed1cee=0115ac86d253c0fa1ddaa291e3fc1a1028b8ff21f7b9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc2b6abbdbfc31d719c730f06c3ffb30cedbe03c78825a232994871957f4ce1538; Path=/; Domain=.srienlinea.sri.gob.ec
+  TS01d1411e=0115ac86d295dc2fb71ee8781e1d98de9ee5fad9f1a7b38b2904b02e9b2bc7dc32f277ad54a60f6784ecacd4bf74e4a220cfd23cde; path=/auth/realms/Internet/
+  TS016a7099=0115ac86d253c0fa1ddaa291e3fc1a1028b8ff21f7b9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc2b6abbdbfc31d719c730f06c3ffb30cedbe03c78825a232994871957f4ce1538; path=/auth/realms/Internet
+
+Cookies ENVIADAS en hop 4:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 4 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+  f5_cspm=1234;;
+
+Cookies ENVIADAS en hop 5:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 5 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+
+Cookies ENVIADAS en hop 6:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 6 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+
+Cookies ENVIADAS en hop 7:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 7 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+
+Cookies ENVIADAS en hop 8:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 8 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+
+Cookies ENVIADAS en hop 9:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 9 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+
+Cookies ENVIADAS en hop 10:
+  JSESSIONID=2kDgpEife1xHuc-BkUTaRTfp.sricel09 (Path=/comprobantes-electronicos-internet)
+  TS01c50b6e=0115ac86d29433cc539ca95ef10ec9c2a1d8da997eb9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc8093a3b1488b5055435880702372aa53e91ce171ae3b7cdf1d25b28023b33bd09 (Path=/comprobantes-electronicos-internet)
+  JSESSIONID=OF+0i1cU9c68sujWJfZcwsWc.sriinternet02i01 (Path=/tuportal-internet)
+  TS01c52149=0115ac86d2c0dc1fd3d23ffa52fa53e28844d82f8db9b5ceb9a35bb9ee9826a88d1e98b9bf4626fc8c28dde0c5143b870649a4271a6e814b5f2f039278429b5c654ad56cc853f6c6dff3b5fdf9fb9db594fcfd93fc6daa76bf3809a5c2c866aa688c20a9c11604becf6c13f778893c17baa4d48efb (Path=/tuportal-internet)
+--- HOP 10 ---
+URL: https://srienlinea.sri.gob.ec
+Status: 200
+Location: (none)
+Set-Cookie:
+

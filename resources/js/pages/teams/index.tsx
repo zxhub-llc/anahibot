@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { Eye, LogOut, Pencil, Plus } from 'lucide-react';
 import { useState } from 'react';
 import CreateTeamModal from '@/components/create-team-modal';
@@ -20,6 +20,9 @@ type Props = {
 };
 
 export default function TeamsIndex({ teams }: Props) {
+    const page = usePage();
+    const canCreateTeam = page.props.canCreateTeam ?? false;
+
     const [leaveTeamDialogOpen, setLeaveTeamDialogOpen] = useState(false);
     const [teamLeaving, setTeamLeaving] = useState<Team | null>(null);
 
@@ -42,11 +45,13 @@ export default function TeamsIndex({ teams }: Props) {
                         description="Manage your teams and team memberships"
                     />
 
-                    <CreateTeamModal>
-                        <Button data-test="teams-new-team-button">
-                            <Plus /> New team
-                        </Button>
-                    </CreateTeamModal>
+                    {canCreateTeam && (
+                        <CreateTeamModal>
+                            <Button data-test="teams-new-team-button">
+                                <Plus /> New team
+                            </Button>
+                        </CreateTeamModal>
+                    )}
                 </div>
 
                 <div className="space-y-3">

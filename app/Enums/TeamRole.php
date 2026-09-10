@@ -29,8 +29,24 @@ enum TeamRole: string
                 TeamPermission::UpdateTeam,
                 TeamPermission::CreateInvitation,
                 TeamPermission::CancelInvitation,
+                TeamPermission::CreateWebhook,
+                TeamPermission::UpdateWebhook,
+                TeamPermission::DeleteWebhook,
+                TeamPermission::ViewExtractions,
+                TeamPermission::ManageExtractions,
+                TeamPermission::CreateExtraction,
+                TeamPermission::UpdateExtraction,
+                TeamPermission::DeleteExtraction,
+                TeamPermission::ViewFiscalDocuments,
+                TeamPermission::ManageWebhooks,
+                TeamPermission::ManageSriCredentials,
             ],
-            self::Member => [],
+            self::Member => [
+                TeamPermission::CreateExtraction,
+                TeamPermission::UpdateExtraction,
+                TeamPermission::ViewExtractions,
+                TeamPermission::ViewFiscalDocuments,
+            ],
         };
     }
 

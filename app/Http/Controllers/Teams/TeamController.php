@@ -36,6 +36,8 @@ class TeamController extends Controller
      */
     public function store(SaveTeamRequest $request, CreateTeam $createTeam): RedirectResponse
     {
+        Gate::authorize('create', Team::class);
+
         $team = $createTeam->handle($request->user(), $request->validated('name'));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Team created.')]);
@@ -94,7 +96,6 @@ class TeamController extends Controller
 
         $team = DB::transaction(function () use ($request, $team) {
             $team = Team::whereKey($team->id)->lockForUpdate()->firstOrFail();
-
             $team->update(['name' => $request->validated('name')]);
 
             return $team;
@@ -125,7 +126,6 @@ class TeamController extends Controller
         Gate::authorize('leave', $team);
 
         $user = $request->user();
-
         $fallbackTeam = $user->isCurrentTeam($team)
             ? $user->fallbackTeam($team)
             : null;

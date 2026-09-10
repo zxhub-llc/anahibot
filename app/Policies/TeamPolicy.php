@@ -26,10 +26,12 @@ class TeamPolicy
 
     /**
      * Determine whether the user can create models.
+     * Only accountants can create additional (client) teams — a company
+     * account already has its single team created at registration.
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAccountant();
     }
 
     /**

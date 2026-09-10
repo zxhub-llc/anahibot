@@ -15,18 +15,44 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { edit as editSri } from '@/routes/sri-credentials';
+import { index as indexDocuments } from '@/routes/documents';
+import { index as indexWebhooks } from '@/routes/webhooks';
+import { index as indexExtractions } from '@/routes/extractions';
+
 import type { NavItem } from '@/types';
 
 export function AppSidebar() {
     const page = usePage();
-    const dashboardUrl = page.props.currentTeam
-        ? dashboard(page.props.currentTeam.slug)
-        : '/';
+    const currentTeam = page.props.currentTeam as { slug: string } | undefined;
+    const teamParam = currentTeam?.slug ? { current_team: currentTeam.slug } : undefined;
+
+    const dashboardUrl = currentTeam ? dashboard(currentTeam.slug) : '/';
 
     const mainNavItems: NavItem[] = [
         {
             title: 'Dashboard',
             href: dashboardUrl,
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Sri',
+            href: teamParam ? editSri(teamParam).url : '#',
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Documents',
+            href: teamParam ? indexDocuments(teamParam).url : '#',
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Webhooks',
+            href: teamParam ? indexWebhooks(teamParam).url : '#',
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Extractions',
+            href: teamParam ? indexExtractions(teamParam).url : '#',
             icon: LayoutGrid,
         },
     ];
