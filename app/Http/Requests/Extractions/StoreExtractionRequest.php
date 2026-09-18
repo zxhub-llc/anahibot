@@ -18,6 +18,8 @@ class StoreExtractionRequest extends FormRequest
         return [
             'company_ruc' => ['required', 'string', 'size:13'],
             'trigger' => ['sometimes', new Enum(ExtractionTrigger::class)],
+            'date_from' => ['required', 'date', 'before_or_equal:date_to'],
+            'date_to' => ['required', 'date', 'before_or_equal:today'],
         ];
     }
 

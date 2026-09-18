@@ -10,6 +10,7 @@ import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import { index as teams } from '@/routes/teams';
 import type { NavItem } from '@/types';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -38,7 +39,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
-        <div className="px-4 py-6">
+        <div className="px-4 py-6 no-scrollbar">
             <Heading
                 title="Settings"
                 description="Manage your profile and account settings"
@@ -62,7 +63,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                             >
                                 <Link href={item.href}>
                                     {item.icon && (
-                                        <item.icon className="h-4 w-4" />
+                                        <HugeiconsIcon icon={item.icon} className="h-5 w-5" />
                                     )}
                                     {item.title}
                                 </Link>

@@ -9,23 +9,17 @@ use App\Enums\FiscalDocumentType;
 use App\Models\SriCredential;
 use App\Services\FiscalExtraction\Sri\SriDocumentTableParser;
 use App\Services\FiscalExtraction\Sri\SriSessionInvalidatedException;
+use App\Services\FiscalExtraction\Sri\SriAuthorizationPendingException;
 use App\Services\Sri\SriPortalClient;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
 use SoapClient;
 use SoapFault;
+use Throwable;
 
 class SriFiscalExtractionDriver implements FiscalExtractionDriver
 {
-    private const DOCUMENT_TYPE_BY_CODE = [
-        '1' => 'factura',
-        '2' => 'liquidacion_compra',
-        '3' => 'nota_credito',
-        '4' => 'nota_debito',
-        '5' => 'guia_remision',
-        '6' => 'retencion',
-    ];
-
     public function __construct(private readonly SriPortalClient $portalClient)
     {
     }
@@ -41,45 +35,98 @@ class SriFiscalExtractionDriver implements FiscalExtractionDriver
         $this->portalClient->login($companyRuc, $credential->username, $credential->password);
     }
 
-    public function extract(string $companyRuc): array
+    public function extract(string $companyRuc, CarbonInterface $dateFrom, CarbonInterface $dateTo): array
     {
-        try {
-            return $this->extractOnce($companyRuc);
-        } catch (SriSessionInvalidatedException $e) {
-            
-            Log::warning('SRI session invalidated by SSO, reauthenticating and retrying once', [
-                'ruc' => $companyRuc,
-                'message' => $e->getMessage(),
-            ]);
-
-            $this->authenticate($companyRuc);
-
-            return $this->extractOnce($companyRuc);
+        $maxAttempts = 3;
+        for ($attempt = 1; $attempt <= $maxAttempts; $attempt++) {
+            try {
+                return $this->extractOnce($companyRuc, $dateFrom, $dateTo);
+            } catch (SriSessionInvalidatedException $e) {
+                if ($attempt === $maxAttempts) {
+                    throw $e;
+                }
+                Log::warning("SRI session invalidated by SSO (attempt {$attempt}/{$maxAttempts}), reauthenticating and retrying", [
+                    'ruc' => $companyRuc,
+                    'message' => $e->getMessage(),
+                ]);
+                $this->authenticate($companyRuc);
+            }
         }
+
+        throw new \RuntimeException("No se pudo completar la extracción del SRI para el RUC {$companyRuc} tras {$maxAttempts} intentos.");
     }
 
-    private function extractOnce(string $companyRuc): array
+    private function extractOnce(string $companyRuc, CarbonInterface $dateFrom, CarbonInterface $dateTo): array
     {
         $received = array_map(
             fn (array $row) => $this->toReference($row, FiscalDocumentDirection::Received),
-            $this->portalClient->fetchDocuments($companyRuc, 'received'),
+            $this->portalClient->fetchReceivedDocuments($companyRuc, $dateFrom, $dateTo),
         );
 
         $issued = array_map(
             fn (array $row) => $this->toReference($row, FiscalDocumentDirection::Issued),
-            $this->portalClient->fetchDocuments($companyRuc, 'issued'),
+            $this->portalClient->fetchIssuedDocuments($companyRuc, $dateFrom, $dateTo),
         );
 
         return [...$received, ...$issued];
     }
 
+    public function fetchTaxpayer(string $companyRuc): array
+    {
+        return $this->portalClient->fetchTaxpayer($companyRuc);
+    }
+
     public function downloadXml(string $companyRuc, string $accessKey): string
     {
+        $primaryWsdl = $this->authorizationWsdlFor($accessKey);
+        $alternateWsdl = $primaryWsdl === config('fiscal-extraction.sri.soap_authorization_wsdl_prod')
+            ? config('fiscal-extraction.sri.soap_authorization_wsdl_test')
+            : config('fiscal-extraction.sri.soap_authorization_wsdl_prod');
+
         try {
-            $client = new SoapClient(config('fiscal-extraction.sri.soap_authorization_wsdl'), [
+            return $this->querySoapAuthorization($accessKey, $primaryWsdl);
+        } catch (Throwable $e) {
+            Log::info("Primary SOAP WSDL query failed for access key {$accessKey}, retrying with alternate WSDL", [
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        try {
+            return $this->querySoapAuthorization($accessKey, $alternateWsdl);
+        } catch (Throwable $e) {
+            Log::info("SOAP authorization failed on both WSDLs for {$accessKey}, trying portal fallback");
+        }
+
+        $xml = $this->portalClient->downloadXmlFromPortal($companyRuc, $accessKey);
+        if ($xml !== null) {
+            return $xml;
+        }
+
+        throw new SriAuthorizationPendingException(
+            "El SRI aún no indexa el comprobante {$accessKey} (WS SOAP x2 + portal). Reintentar más tarde."
+        );
+    }
+
+    private function querySoapAuthorization(string $accessKey, string $wsdl): string
+    {
+        try {
+            $context = stream_context_create([
+                'ssl' => [
+                    'verify_peer' => true,
+                    'verify_peer_name' => true,
+                    'cafile' => ini_get('openssl.cafile'),
+                ],
+                'http' => [
+                    'protocol_version' => 1.1,
+                    'timeout' => config('fiscal-extraction.sri.http_timeout'),
+                ],
+            ]);
+
+            $client = new SoapClient($wsdl, [
                 'trace' => true,
                 'exceptions' => true,
                 'connection_timeout' => config('fiscal-extraction.sri.http_timeout'),
+                'stream_context' => $context,
             ]);
 
             $response = $client->autorizacionComprobante([
@@ -89,38 +136,61 @@ class SriFiscalExtractionDriver implements FiscalExtractionDriver
             $autorizaciones = $response->RespuestaAutorizacionComprobante->autorizaciones->autorizacion ?? null;
 
             if ($autorizaciones === null) {
-                throw new RuntimeException("The SRI did not return authorizations for the access key {$accessKey}.");
+                $numeroComprobantes = $response->RespuestaAutorizacionComprobante->numeroComprobantes ?? null;
+
+                throw new RuntimeException(
+                    "El SRI no devolvió autorizaciones para la clave {$accessKey} en el WSDL {$wsdl} (numeroComprobantes: {$numeroComprobantes})."
+                );
             }
 
             $autorizacion = is_array($autorizaciones) ? $autorizaciones[0] : $autorizaciones;
 
             if (($autorizacion->estado ?? null) !== 'AUTORIZADO') {
-                throw new RuntimeException("The receipt {$accessKey} is not AUTHORIZED in the SRI (status: {$autorizacion->estado}).");
+                throw new RuntimeException("El comprobante {$accessKey} no está AUTORIZADO en el SRI (estado: {$autorizacion->estado}).");
             }
 
             return (string) $autorizacion->comprobante;
         } catch (SoapFault $fault) {
-            throw new RuntimeException("SOAP failure consulting authorization of {$accessKey}: {$fault->getMessage()}", previous: $fault);
+            throw new RuntimeException("Fallo SOAP consultando autorización de {$accessKey}: {$fault->getMessage()}", previous: $fault);
         }
     }
-
-    public function downloadRide(string $companyRuc, string $accessKey): ?string
+    
+    private function authorizationWsdlFor(string $accessKey): string
     {
-        return $this->portalClient->downloadRide($companyRuc, $accessKey);
+        $ambiente = substr($accessKey, 23, 1);
+
+        return match ($ambiente) {
+            '1' => config('fiscal-extraction.sri.soap_authorization_wsdl_test'),
+            '2' => config('fiscal-extraction.sri.soap_authorization_wsdl_prod'),
+            default => throw new RuntimeException("Dígito de ambiente desconocido ('{$ambiente}') en la clave {$accessKey}."),
+        };
     }
 
-    /**
-     * @param array<int, string> $row fila cruda devuelta por SriDocumentTableParser.
-     */
+    public function downloadRide(string $companyRuc, string $accessKey, string $direction): ?string
+    {
+        return $this->portalClient->downloadRide($companyRuc, $accessKey, $direction);
+    }
+
     private function toReference(array $row, FiscalDocumentDirection $direction): FiscalDocumentReference
     {
-        $accessKey = trim($row[SriDocumentTableParser::COL_ACCESS_KEY] ?? '');
+        $accessKeyColumn = $direction === FiscalDocumentDirection::Issued
+            ? SriDocumentTableParser::COL_ACCESS_KEY_ISSUED
+            : SriDocumentTableParser::COL_ACCESS_KEY;
+
+        $accessKey = trim($row[$accessKeyColumn] ?? '');
 
         if (strlen($accessKey) !== 49) {
+            Log::error('SRI invalid access key row', [
+                'direction' => $direction->value,
+                'row' => $row,
+            ]);
+
             throw new RuntimeException("Invalid access key detected in the portal list: '{$accessKey}'.");
         }
 
-        $counterpartRaw = $row[SriDocumentTableParser::COL_COUNTERPART] ?? '';
+        $counterpartRaw = $direction === FiscalDocumentDirection::Received
+            ? ($row[SriDocumentTableParser::COL_COUNTERPART] ?? '')
+            : '';
         $counterpartRuc = trim(explode(' ', $counterpartRaw, 2)[0] ?? '');
 
         return new FiscalDocumentReference(

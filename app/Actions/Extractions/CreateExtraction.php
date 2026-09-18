@@ -21,6 +21,8 @@ class CreateExtraction
                 'team_id' => $team->id,
                 'requested_by_id' => $user->id,
                 'company_ruc' => $data['company_ruc'],
+                'date_from' => $data['date_from'],
+                'date_to' => $data['date_to'],
                 'trigger' => $data['trigger'] ?? ExtractionTrigger::Manual->value,
                 'status' => ExtractionStatus::Queued->value,
                 'attempts' => 1,

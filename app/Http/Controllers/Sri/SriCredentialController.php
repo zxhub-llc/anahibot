@@ -25,6 +25,7 @@ class SriCredentialController extends Controller
 
         return Inertia::render('sri/edit', [
             'credential' => $credential ? (new SriCredentialResource($credential))->resolve() : null,
+            'company' => $currentTeam->company,
         ]);
     }
 

@@ -19,6 +19,8 @@ class Extraction extends Model
         'team_id',
         'requested_by_id',
         'company_ruc',
+        'date_from',
+        'date_to',
         'trigger',
         'status',
         'attempts',
@@ -31,6 +33,8 @@ class Extraction extends Model
         return [
             'trigger' => ExtractionTrigger::class,
             'status' => ExtractionStatus::class,
+            'date_from' => 'date',
+            'date_to' => 'date',
             'completed_at' => 'datetime',
         ];
     }
@@ -44,10 +48,7 @@ class Extraction extends Model
     {
         return $this->belongsTo(User::class, 'requested_by_id');
     }
-
-    /**
-     * @return HasMany<ExtractionRun, $this>
-     */
+    
     public function runs(): HasMany
     {
         return $this->hasMany(ExtractionRun::class);

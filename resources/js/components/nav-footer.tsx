@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/sidebar';
 import { toUrl } from '@/lib/utils';
 import type { NavItem } from '@/types';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 export function NavFooter({
     items,
@@ -35,7 +36,7 @@ export function NavFooter({
                                     rel="noopener noreferrer"
                                 >
                                     {item.icon && (
-                                        <item.icon className="h-5 w-5" />
+                                        <HugeiconsIcon icon={item.icon} className="h-5 w-5" />
                                     )}
                                     <span>{item.title}</span>
                                 </a>

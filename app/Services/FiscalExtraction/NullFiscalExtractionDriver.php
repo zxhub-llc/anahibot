@@ -9,7 +9,6 @@ class NullFiscalExtractionDriver implements FiscalExtractionDriver
 {
     public function authenticate(string $companyRuc): void
     {
-        // Sin origen externo configurado: no hay sesión que establecer.
     }
 
     public function extract(string $companyRuc): array

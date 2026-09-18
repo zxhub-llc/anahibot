@@ -43,10 +43,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('settings/teams/{team}/members/{user}', [TeamMemberController::class, 'destroy'])->name('teams.members.destroy');
     Route::post('settings/teams/{team}/invitations', [TeamInvitationController::class, 'store'])->name('teams.invitations.store');
     Route::delete('settings/teams/{team}/invitations/{invitation}', [TeamInvitationController::class, 'destroy'])->name('teams.invitations.destroy');
-
-    // Nuevo: datos de la empresa (RUC) del team
-    Route::get('settings/teams/{team}/company', [CompanyController::class, 'edit'])->name('companies.edit');
-    Route::patch('settings/teams/{team}/company', [CompanyController::class, 'update'])->name('companies.update');
 });
 });
 

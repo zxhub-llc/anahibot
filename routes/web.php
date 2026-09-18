@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Ai\AnahiAIController;
 use App\Http\Controllers\Teams\TeamInvitationController;
 use App\Http\Controllers\Extractions\ExtractionController;
 use App\Http\Controllers\FiscalDocuments\FiscalDocumentController;
 use App\Http\Controllers\Sri\SriCredentialController;
 use App\Http\Controllers\Webhooks\WebhookEndpointController;
+use App\Http\Controllers\Companies\CompanyController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,8 @@ Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
     ->group(function () {
         Route::get('dashboard', DashboardController::class)->name('dashboard');
+        Route::get('ai', [AnahiAIController::class, 'index'])->name('ai.index');
+        Route::post('ai/chat', [AnahiAIController::class, 'chat'])->name('ai.chat');
         // Extractions
         Route::prefix('extractions')->name('extractions.')->group(function () {
             Route::get('/', [ExtractionController::class, 'index'])->name('index');
@@ -24,6 +28,11 @@ Route::prefix('{current_team}')
                 Route::post('retry', [ExtractionController::class, 'retry'])->name('retry');
                 Route::post('cancel', [ExtractionController::class, 'cancel'])->name('cancel');
             });
+        });
+        // Company
+        Route::prefix('company')->name('companies.')->group(function () {
+            Route::get('/', [CompanyController::class, 'edit'])->name('edit');
+            Route::patch('/', [CompanyController::class, 'update'])->name('update');
         });
 
         // Documents
@@ -35,6 +44,7 @@ Route::prefix('{current_team}')
                     Route::get('xml', [FiscalDocumentController::class, 'downloadXml'])->name('xml');
                     Route::get('pdf', [FiscalDocumentController::class, 'downloadPdf'])->name('pdf');
                     Route::get('json', [FiscalDocumentController::class, 'downloadJson'])->name('json');
+                    Route::get('zip', [FiscalDocumentController::class, 'downloadZip'])->name('zip');
                 });
             });
         });

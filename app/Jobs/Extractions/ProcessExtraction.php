@@ -23,6 +23,8 @@ class ProcessExtraction implements ShouldQueue, ShouldBeUnique
     use Queueable;
     use SerializesModels;
 
+    public int $timeout = 600;
+    
     public int $tries = 1;
 
     public function __construct(public Extraction $extraction)
@@ -55,7 +57,7 @@ class ProcessExtraction implements ShouldQueue, ShouldBeUnique
 
         try {
             $driver->authenticate($extraction->company_ruc);
-            $references = $driver->extract($extraction->company_ruc);
+            $references = $driver->extract($extraction->company_ruc, $extraction->date_from, $extraction->date_to);
 
             $run->update(['documents_found' => count($references)]);
 

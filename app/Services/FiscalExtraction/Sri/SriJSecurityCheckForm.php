@@ -4,18 +4,13 @@ namespace App\Services\FiscalExtraction\Sri;
 
 final class SriJSecurityCheckForm
 {
-    /**
-     * @param array<string, string> $fields
-     */
+    
     private function __construct(
         public readonly string $actionUrl,
         public readonly array $fields,
     ) {
     }
 
-    /**
-     * @return self|null null si la página no contiene este form (ya es la página final).
-     */
     public static function fromHtmlOrNull(string $html, string $baseUrlForAction): ?self
     {
         if (! str_contains($html, 'j_security_check')) {
@@ -39,7 +34,6 @@ final class SriJSecurityCheckForm
 
         $fields = [];
 
-        // Capturar TODOS los inputs dentro del formulario de j_security_check
         foreach ($xpath->query('.//input', $form) as $input) {
             $name = $input->getAttribute('name');
 

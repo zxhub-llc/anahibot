@@ -4,9 +4,6 @@ namespace App\Jobs\Middleware;
 
 use Illuminate\Support\Facades\Cache;
 
-// Responsabilidad: middleware de job que aplica un lock selectivo (WithoutOverlapping a nivel de
-// documento, no de Team completo) para evitar que dos workers procesen el mismo access_key en
-// paralelo durante una ventana de descarga. Complementa, no reemplaza, el unique constraint de BD.
 class PreventDuplicateDocumentProcessing
 {
     public function __construct(

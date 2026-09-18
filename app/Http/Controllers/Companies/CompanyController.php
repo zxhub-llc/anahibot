@@ -13,36 +13,35 @@ use Inertia\Response;
 
 class CompanyController extends Controller
 {
-    /**
-     * Show the company edit page for the given team.
-     */
-    public function edit(Request $request, Team $team): Response
+    public function edit(Request $request, Team $currentTeam): Response
     {
-        Gate::authorize('update', $team);
+        Gate::authorize('update', $currentTeam);
 
         return Inertia::render('companies/edit', [
             'team' => [
-                'id' => $team->id,
-                'slug' => $team->slug,
-                'name' => $team->name,
+                'id' => $currentTeam->id,
+                'slug' => $currentTeam->slug,
+                'name' => $currentTeam->name,
             ],
-            'company' => $team->company,
+            'company' => $currentTeam->company,
         ]);
     }
 
-    /**
-     * Update (or create) the company data for the given team.
-     */
-    public function update(SaveCompanyRequest $request, Team $team): RedirectResponse
-    {
-        Gate::authorize('update', $team);
+    public function update(
+        SaveCompanyRequest $request,
+        Team $currentTeam
+    ): RedirectResponse {
+        Gate::authorize('update', $currentTeam);
 
-        $team->company()->updateOrCreate(
-            ['team_id' => $team->id],
+        $currentTeam->company()->updateOrCreate(
+            ['team_id' => $currentTeam->id],
             $request->validated(),
         );
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => __('Updated company information.')]);
+        Inertia::flash('toast', [
+            'type' => 'success',
+            'message' => __('Updated company information.'),
+        ]);
 
         return back();
     }

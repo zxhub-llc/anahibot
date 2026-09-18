@@ -23,11 +23,12 @@ class ExtractionController extends Controller
         Gate::authorize('viewAny', Extraction::class);
 
         $extractions = $currentTeam->extractions()
+            ->with('runs')
             ->latest()
             ->paginate(20)
             ->through(fn (Extraction $extraction) => (new ExtractionResource($extraction))->resolve());
-
-        return Inertia::render('extractions/index', [
+        
+            return Inertia::render('extractions/index', [
             'extractions' => $extractions,
         ]);
     }
@@ -42,23 +43,20 @@ class ExtractionController extends Controller
     }
 
     public function store(StoreExtractionRequest $request, Team $currentTeam, CreateExtraction $createExtraction): RedirectResponse
-    {
-        Gate::authorize('create', Extraction::class);
+{
+    Gate::authorize('create', Extraction::class);
 
-        $extraction = $createExtraction->handle(
-            user: $request->user(),
-            team: $currentTeam,
-            data: $request->validated(),
-        );
+    $createExtraction->handle(
+        user: $request->user(),
+        team: $currentTeam,
+        data: $request->validated(),
+    );
 
-        return to_route('extractions.show', [
-            'current_team' => $currentTeam->slug,
-            'extraction' => $extraction,
-        ])->with('toast', [
-                    'type' => 'success',
-                    'message' => __('Extraction started.'),
-                ]);
-    }
+    return back()->with('toast', [
+        'type' => 'success',
+        'message' => __('Extraction request created. Processing in the background.'),
+    ]);
+}
 
     public function retry(Request $request, Team $currentTeam, Extraction $extraction, RetryExtraction $retryExtraction): RedirectResponse
     {

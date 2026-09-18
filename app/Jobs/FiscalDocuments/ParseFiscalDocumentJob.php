@@ -12,8 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-// Responsabilidad: parsea y normaliza un FiscalDocument ya descargado, y actualiza los contadores
-// agregados del ExtractionRun (documents_processed / documents_failed) usado por FinalizeExtraction.
 class ParseFiscalDocumentJob implements ShouldQueue
 {
     use Dispatchable;

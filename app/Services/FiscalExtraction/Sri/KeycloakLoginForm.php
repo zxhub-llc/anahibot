@@ -4,11 +4,6 @@ namespace App\Services\FiscalExtraction\Sri;
 
 use RuntimeException;
 
-// Responsabilidad: extrae la URL de acción real (con session_code/execution/tab_id vigentes,
-// que cambian en cada carga) y los campos ocultos del formulario de login de Keycloak
-// (realm "Internet", client_id "app-sri-claves-angular") a partir del HTML de la página.
-// Confirmado contra las URLs reales compartidas por el usuario — este NO es un formulario JSF
-// (no hay javax.faces.ViewState); es el login estándar de Keycloak.
 final class KeycloakLoginForm
 {
     public function __construct(

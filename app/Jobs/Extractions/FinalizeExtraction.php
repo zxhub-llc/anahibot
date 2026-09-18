@@ -10,8 +10,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-// Responsabilidad: último eslabón del pipeline. Se dispara cuando el batch de descargas de un
-// ExtractionRun finaliza (con o sin fallos) y delega en CompleteExtraction el cierre del estado.
 class FinalizeExtraction implements ShouldQueue
 {
     use Dispatchable;

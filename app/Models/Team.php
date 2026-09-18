@@ -16,29 +16,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
-/**
- * @property int $id
- * @property string $name
- * @property string $slug
- * @property bool $is_personal
- * @property TeamType $type
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Carbon|null $deleted_at
- * @property-read Collection<int, TeamInvitation> $invitations
- * @property-read Collection<int, Membership> $memberships
- * @property-read Collection<int, User> $members
- * @property-read Company|null $company
- */
 #[Fillable(['name', 'slug', 'is_personal', 'type'])]
 class Team extends Model
 {
-    /** @use HasFactory<TeamFactory> */
     use GeneratesUniqueTeamSlugs, HasFactory, SoftDeletes;
 
-    /**
-     * Bootstrap the model and its traits.
-     */
     protected static function boot(): void
     {
         parent::boot();
@@ -56,9 +38,6 @@ class Team extends Model
         });
     }
 
-    /**
-     * Get the team owner.
-     */
     public function owner(): ?Model
     {
         return $this->members()
@@ -66,11 +45,6 @@ class Team extends Model
             ->first();
     }
 
-    /**
-     * Get all members of this team.
-     *
-     * @return BelongsToMany<User, $this, Membership, 'pivot'>
-     */
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'team_members', 'team_id', 'user_id')
@@ -79,41 +53,21 @@ class Team extends Model
             ->withTimestamps();
     }
 
-    /**
-     * Get all memberships for this team.
-     *
-     * @return HasMany<Membership, $this>
-     */
     public function memberships(): HasMany
     {
         return $this->hasMany(Membership::class);
     }
 
-    /**
-     * Get all invitations for this team.
-     *
-     * @return HasMany<TeamInvitation, $this>
-     */
     public function invitations(): HasMany
     {
         return $this->hasMany(TeamInvitation::class);
     }
-
-    /**
-     * Get the company data for this team (only applicable when type = company).
-     *
-     * @return HasOne<Company, $this>
-     */
+    
     public function company(): HasOne
     {
         return $this->hasOne(Company::class);
     }
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    
     protected function casts(): array
     {
         return [
@@ -121,10 +75,7 @@ class Team extends Model
             'type' => TeamType::class,
         ];
     }
-
-    /**
-     * Get the route key for the model.
-     */
+    
     public function getRouteKeyName(): string
     {
         return 'slug';

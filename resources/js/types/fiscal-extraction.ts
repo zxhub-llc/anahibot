@@ -20,12 +20,18 @@ export type FiscalDocumentDirection = 'received' | 'issued';
 export interface Extraction {
     id: number;
     company_ruc: string;
+    date_from: string;
+    date_to: string;
     trigger: string;
-    status: ExtractionStatus;
+    status: 'pending' | 'queued' | 'running' | 'completed' | 'completed_with_errors' | 'failed' | 'cancelled';
     attempts: number;
     completed_at: string | null;
     last_error: string | null;
     created_at: string;
+    documents_found: number;
+    documents_processed: number;
+    documents_failed: number;
+    progress: number;
 }
 
 export interface FiscalDocument {
@@ -62,6 +68,13 @@ export interface Paginated<T> {
     data: T[];
     current_page: number;
     last_page: number;
-    total: number;
     per_page: number;
+    total: number;
+    from: number | null;
+    to: number | null;
+    first_page_url: string;
+    last_page_url: string;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+    path: string;
 }

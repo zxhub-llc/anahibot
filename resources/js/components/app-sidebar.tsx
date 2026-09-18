@@ -1,5 +1,4 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -15,12 +14,15 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
+import { index as indexAnahiAi } from '@/routes/ai';
 import { edit as editSri } from '@/routes/sri-credentials';
+import { edit as editCompanies } from '@/routes/companies';
 import { index as indexDocuments } from '@/routes/documents';
 import { index as indexWebhooks } from '@/routes/webhooks';
 import { index as indexExtractions } from '@/routes/extractions';
 
 import type { NavItem } from '@/types';
+import { BookOpen01Icon, BuildingIcon, ChatBotIcon, CloudDownloadIcon, DashboardSpeed02Icon, FolderGitTwoIcon, IdCardLanyardIcon, LegalDocument02Icon, WebhookIcon } from '@hugeicons/core-free-icons';
 
 export function AppSidebar() {
     const page = usePage();
@@ -33,27 +35,37 @@ export function AppSidebar() {
         {
             title: 'Dashboard',
             href: dashboardUrl,
-            icon: LayoutGrid,
+            icon: DashboardSpeed02Icon,
+        },
+        {
+            title: 'Anahi AI',
+            href: teamParam ? indexAnahiAi(teamParam).url : '#',
+            icon: ChatBotIcon,
+        },
+        {
+            title: 'Companies',
+            href: teamParam ? editCompanies(teamParam).url : '#',
+            icon: BuildingIcon,
         },
         {
             title: 'Sri',
             href: teamParam ? editSri(teamParam).url : '#',
-            icon: LayoutGrid,
+            icon: IdCardLanyardIcon,
         },
         {
             title: 'Documents',
             href: teamParam ? indexDocuments(teamParam).url : '#',
-            icon: LayoutGrid,
+            icon: LegalDocument02Icon,
         },
         {
             title: 'Webhooks',
             href: teamParam ? indexWebhooks(teamParam).url : '#',
-            icon: LayoutGrid,
+            icon: WebhookIcon,
         },
         {
             title: 'Extractions',
             href: teamParam ? indexExtractions(teamParam).url : '#',
-            icon: LayoutGrid,
+            icon: CloudDownloadIcon,
         },
     ];
 
@@ -61,12 +73,12 @@ export function AppSidebar() {
         {
             title: 'Repository',
             href: 'https://github.com/laravel/react-starter-kit',
-            icon: FolderGit2,
+            icon: FolderGitTwoIcon,
         },
         {
             title: 'Documentation',
             href: 'https://laravel.com/docs/starter-kits#react',
-            icon: BookOpen,
+            icon: BookOpen01Icon,
         },
     ];
 

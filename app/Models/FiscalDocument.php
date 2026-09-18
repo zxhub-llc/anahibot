@@ -77,9 +77,9 @@ class FiscalDocument extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(self::MEDIA_XML)->useDisk('s3')->singleFile();
-        $this->addMediaCollection(self::MEDIA_PDF)->useDisk('s3')->singleFile();
-        $this->addMediaCollection(self::MEDIA_JSON)->useDisk('s3')->singleFile();
+        $this->addMediaCollection(self::MEDIA_XML)->singleFile();
+        $this->addMediaCollection(self::MEDIA_PDF)->singleFile();
+        $this->addMediaCollection(self::MEDIA_JSON)->singleFile();
     }
 
     public function xmlMedia(): ?Media

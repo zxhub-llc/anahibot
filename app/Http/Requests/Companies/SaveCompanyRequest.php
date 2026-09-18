@@ -10,7 +10,7 @@ class SaveCompanyRequest extends FormRequest
 {
     public function rules(): array
     {
-        /** @var Team|null $team */
+        
         $team = $this->route('team');
 
         return [

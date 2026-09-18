@@ -15,10 +15,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
 use Throwable;
 
-// Responsabilidad: recibe las referencias de documentos localizadas por el Driver y las reparte
-// como un Bus::batch de jobs DownloadFiscalDocument (uno por documento), permitiendo concurrencia
-// controlada y que un fallo puntual no aborte el resto del lote. Al completar el batch, despacha
-// FinalizeExtraction para cerrar el run.
 class ExtractDocumentBatch implements ShouldQueue
 {
     use Dispatchable;
@@ -26,7 +22,6 @@ class ExtractDocumentBatch implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    /** @param FiscalDocumentReference[] $references */
     public function __construct(
         public Extraction $extraction,
         public ExtractionRun $run,

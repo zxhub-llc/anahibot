@@ -6,9 +6,7 @@ use RuntimeException;
 
 final class SriComprobantesForm
 {
-    /**
-     * @param array<string, string> $fields Todos los campos del formulario, name => value.
-     */
+
     public function __construct(
         public readonly string $actionUrl,
         public readonly string $viewState,

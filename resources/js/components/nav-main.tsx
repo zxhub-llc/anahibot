@@ -9,6 +9,9 @@ import {
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import type { NavItem } from '@/types';
 
+// CORRECCIÓN: Importar el componente desde @hugeicons/react
+import { HugeiconsIcon } from '@hugeicons/react';
+
 export function NavMain({ items = [] }: { items: NavItem[] }) {
     const { isCurrentUrl } = useCurrentUrl();
 
@@ -24,7 +27,9 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                             tooltip={{ children: item.title }}
                         >
                             <Link href={item.href} prefetch>
-                                {item.icon && <item.icon />}
+                                {item.icon && (
+                                    <HugeiconsIcon icon={item.icon} className="h-5 w-5" />
+                                )}
                                 <span>{item.title}</span>
                             </Link>
                         </SidebarMenuButton>
